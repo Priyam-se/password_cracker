@@ -1,0 +1,22 @@
+# Sample Test Hashes for Evaluation & Demo
+# You can copy and paste any of these into: python3 src/main.py crack -t <HASH>
+
+# Target: "password"
+MD5: 5f4dcc3b5aa765d61d8327deb882cf99
+SHA-1: 5baa61e4c9b93f3f0682250b6cf8331b7ee68d80
+SHA-256: 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+
+# Target: "123456"
+MD5: e10adc3949ba59abbe56e057f20f883e
+SHA-256: 8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92
+
+# Target: "admin"
+MD5: 21232f297a57a5a743894a0e4a801fc3
+SHA-256: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+
+# Target: "welcome"
+SHA-256: 7b52009b64fd0a2a49e6d8a939753077792b0554cac5157ba704179377f6b421
+
+# Salted Demo Target: Password "admin", Salt "cb6562c19c888a3774002965e800f5c3"
+Salted-SHA-256: a2b98d3d944bb6924d6ba2b35d0a2080801e29347c6f39bd70cd8748a0096eb2
+Salt: cb6562c19c888a3774002965e800f5c3
