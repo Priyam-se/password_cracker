@@ -98,6 +98,45 @@ python3 src/main.py benchmark
 
 ---
 
+## Industry Tools Analysis: John the Ripper & Hashcat
+
+As part of analyzing industry-standard password recovery tools alongside our custom implementation, we evaluated **John the Ripper** and **Hashcat** against our target hashes:
+
+### 1. Cracking with John the Ripper
+John the Ripper leverages optimized CPU SIMD instructions (AVX2/SSE):
+```bash
+# Create raw hash target
+echo "5f4dcc3b5aa765d61d8327deb882cf99" > raw_md5.txt
+
+# Run dictionary attack using our SecLists wordlist
+john --format=raw-md5 --wordlist=wordlists/10k-most-common.txt raw_md5.txt
+
+# View cracked plaintext
+john --show --format=raw-md5 raw_md5.txt
+# Output: ?:password (1 password hash cracked)
+```
+
+### 2. Cracking with Hashcat
+Hashcat utilizes GPU compute pipelines (OpenCL / CUDA) for massive parallelization:
+```bash
+# Dictionary attack (-a 0) against MD5 (-m 0)
+hashcat -m 0 -a 0 raw_md5.txt wordlists/10k-most-common.txt
+
+# Display cracked result
+hashcat -m 0 --show raw_md5.txt
+```
+
+### 3. Tool Comparison & Architecture Analysis
+
+| Feature / Metric | Custom Python Engine | John the Ripper | Hashcat |
+|---|---|---|---|
+| **Primary Target** | CPU (Python Standard Library) | CPU (AVX2 / SIMD assembly) | GPU (OpenCL / CUDA compute) |
+| **Strengths** | Zero dependencies, transparent logic, cross-platform | Excellent CPU SIMD optimization, Unix crypt support | Massive parallel throughput (billions H/s on modern GPUs) |
+| **Best Use Case** | Learning, scripting, CTF automation | Shadow files, rule-based CPU attacks | Bulk unsalted hash cracking at scale |
+| **Salting Handling** | Prepend/append salt in code | Formats like `$dynamic_...` | Built-in salted modes (`-m 10`, `-m 20`) |
+
+---
+
 ## Sample Output
 
 ```text
